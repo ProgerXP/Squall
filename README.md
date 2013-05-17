@@ -18,7 +18,7 @@ Squall follows jQuery's **implicit iteration** approach meaning that most of its
 
 Squall is used by [Sqobot](https://github.com/ProgerXP/Sqobot) and [VaneMart](https://github.com/ProgerXP/VaneMart).
 
-Licensed in public domain.
+Licensed in public domain. Visit author's homepage at http://proger.me.
 
 ## Usage
 
