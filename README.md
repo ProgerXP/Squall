@@ -65,4 +65,4 @@ S::map($data, array('|#trim#|strtolower|str_rot13'));
   //=> array(' fBzR  ' => 'some', 'XrLf ' => 'keys')
 ```
 
-_Help text is yet to be written... drop a line if you're interested._
+_Help text is yet to be written, for now you can find a draft [here](http://uverse.i-forge.net/wiki/demo/?33s). Drop a line if you're interested._

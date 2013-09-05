@@ -229,6 +229,13 @@ class Functions {
     return is_array($v) ? $v : array($key => $v);
   }
 
+  //= int count of array/Iterable members or characters in a string
+  //= null for other types
+  static function length($v) {
+    $func = static::typeFunc($v, static::mbstring('strlen'), 'count');
+    return $func ? $func($v) : 0;
+  }
+
   //* $value Closure to call and return result, mixed to return as is
   static function unclosure($v) {
     return ($v instanceof Closure) ? $v() : $v;
@@ -1287,6 +1294,24 @@ class Utils extends Functions {
     return static::transform($str, function ($str) use ($quotes, $doubleEncode) {
       return htmlspecialchars($str, $quotes, $charset, $doubleEncode);
     });
+  }
+
+  static function htmlInputs($query, $prefix = '', $xhtml = false) {
+    is_string($query) and parse_str($query, $query);
+    $xhtml = $xhtml ? ' /' : '';
+
+    foreach ($query as $name => &$value) {
+      if (is_array($value)) {
+        $name = "$prefix" === '' ? $name : $prefix."[$name]";
+        $value = static::htmlInputs($value, $name, $xhtml);
+      } else {
+        "$prefix" === '' or $name = $prefix."[$name]";
+        $value = '<input type="hidden" name="'.static::html($name).'"'.
+                 ' value="'.static::html($value).'"'.$xhtml.'>';
+      }
+    }
+
+    return join("\n", $query);
   }
 
   static function queryStr(array $query, $noQuestionMark = false) {
